@@ -166,19 +166,13 @@
         dofile(_hypr_dir .. "/monitors.lua")
         dofile(_hypr_dir .. "/noctalia-extra.lua")
 
-        hl.window_rule({
-          name  = "vesktop-no-blur",
-          match = { class = "vesktop" },
-          no_blur = true,
-        })
-
-        hl.bind(mod .. " + S",         hl.dsp.exec_cmd("${pkgs.firefox}/bin/firefox"))
-        hl.bind(mod .. " + SHIFT +C",   hl.dsp.window.close())
-        hl.bind(mod .. " + Q",         hl.dsp.exec_cmd(terminal))
+        hl.bind(mod .. " + S",         hl.dsp.exec_cmd("firefox-devedition"))
+        hl.bind(mod .. " + Q",   hl.dsp.window.close())
+        hl.bind(mod .. " + C",         hl.dsp.exec_cmd(terminal))
         hl.bind(mod .. " + Space",     hl.dsp.window.float({ action = "toggle" }))
         hl.bind(mod .. " + E",         hl.dsp.exec_cmd(fm))
 
-        hl.bind(mod .. " + SHIFT +S",   hl.dsp.exec_cmd("noctalia msg screenshot-region"))
+        hl.bind(mod .. " + SHIFT + S",   hl.dsp.exec_cmd("noctalia msg screenshot-region"))
         hl.bind(mod .. " + U",         hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
         hl.bind(mod .. " + V",         hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
         hl.bind(mod .. " + T",         hl.dsp.exec_cmd("noctalia msg settings-toggle"))
@@ -186,16 +180,14 @@
         hl.bind("ALT + Space",         hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
         hl.bind(mod .. " + M",         hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
 
-        hl.bind(mod .. " + SHIFT +G",   hl.dsp.exec_cmd("${pkgs.firefox}/bin/firefox https://github.com/Chrisser1"))
-        hl.bind(mod .. " + L",         hl.dsp.exec_cmd("${pkgs.firefox}/bin/firefox https://learn.inside.dtu.dk/d2l/home"))
-        hl.bind(mod .. " + SHIFT +L",   hl.dsp.exec_cmd("${pkgs.firefox}/bin/firefox https://studieplan.dtu.dk/"))
+        hl.bind(mod .. " + L",         hl.dsp.exec_cmd("noctalia msg session lock"))
 
         hl.bind(mod .. " + P",         hl.dsp.exec_cmd("hyprpicker -a"))
-        hl.bind(mod .. " + SHIFT +M",   hl.dsp.exec_cmd("hypr-mirror-toggle"))
+        hl.bind(mod .. " + SHIFT + M",   hl.dsp.exec_cmd("hypr-mirror-toggle"))
 
         hl.bind(mod .. " + G",           hl.dsp.group.toggle())
-        hl.bind(mod .. " + Tab",         hl.dsp.group.active({ index = "+1" }))
-        hl.bind(mod .. " + SHIFT + Tab", hl.dsp.group.active({ index = "-1" }))
+        hl.bind(mod .. " + Tab",         hl.dsp.group.next())
+        hl.bind(mod .. " + SHIFT + Tab", hl.dsp.group.prev())
         hl.bind(mod .. " + F",           hl.dsp.window.move({ out_of_group = true }))
 
         hl.bind(mod .. " + left",  hl.dsp.focus({ direction = "left" }))

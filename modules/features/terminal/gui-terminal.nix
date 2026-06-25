@@ -1,17 +1,17 @@
 { self, ... }: {
   flake.homeModules.gui-terminal = {pkgs, ...}: {
-    programs.kitty = {
+    programs.ghostty = {
       enable = true;
-      font = {
-        name = "CaskaydiaCove Nerd Font";
-        size = 12;
-      };
       settings = {
-        enable_audio_bell = false;
-        window_padding_width = 4;
-        hide_window_decorations = "yes";
+        "font-family" = "CaskaydiaCove Nerd Font";
+        "font-size" = 12;
+        "window-padding-x" = 4;
+        "window-padding-y" = 4;
+        "window-decoration" = "none";
+        "shell-integration" = "none";
+        "bell-features" = "no-audio";
+        theme = "Ayu";
       };
-      extraConfig = "include themes/noctalia.conf";
     };
   };
 }

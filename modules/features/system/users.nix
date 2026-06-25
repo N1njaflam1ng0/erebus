@@ -1,20 +1,12 @@
-{self, ...}: {
+{ self, ... }: {
   flake.nixosModules.users = {pkgs, ...}: let
-    passwordHash = "$6$fVHOWpCZkfMidTuo$EFKQAqNuBzvUDl4hxACBbZzgYYO18yBw6/u.e8nIjHckpgFqmHRj4qh/UjrxKyH2lzUNQU41FcYaX3T0Jm1j70";
+    passwordHash = "$6$U2y05r2gVvq36EQp$xVJzzWt6doCPhatyTMCq5aIgQWLEdwlB4NXhYtsIKewA7MQyVQdR8LVWhU4Dy3S0RDluvEcLT.O/3W58fbMwC.";
   in {
     programs.fish.enable = true;
-
-    users.users.chris = {
+    
+    users.users.ebbe = {
       isNormalUser = true;
-      description = "Chris";
-      extraGroups = ["networkmanager" "wheel" "video" "audio"];
-      shell = pkgs.fish;
-      hashedPassword = passwordHash;
-    };
-
-    users.users.work = {
-      isNormalUser = true;
-      description = "Work";
+      description = "ebbe";
       extraGroups = ["networkmanager" "wheel" "video" "audio"];
       shell = pkgs.fish;
       hashedPassword = passwordHash;

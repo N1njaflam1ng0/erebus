@@ -18,16 +18,14 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     hyprland.url = "github:hyprwm/Hyprland";
     split-monitor-workspaces = {
       url = "github:zjeffer/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
     };
     claude-code.url = "github:sadjow/claude-code-nix";
+    # sddm
+    qylock.url = "github:Darkkal44/qylock";
   };
 
   outputs = inputs:

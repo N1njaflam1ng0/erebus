@@ -39,10 +39,16 @@
     imports = [inputs.noctalia.homeModules.default];
     programs.noctalia = {
       enable = true;
-      settings = builtins.readFile "${self}/assets/noctalia-config.toml";
+      settings =
+        builtins.replaceStrings ["@FLAKE@"] ["${self}"]
+        (builtins.readFile "${self}/assets/noctalia-config.toml");
     };
 
-    home.packages = [noctaliaHyprExtra];
+    home.packages = with pkgs; [
+      noctaliaHyprExtra
+      ffmpeg
+      mpvpaper  
+    ];
 
     systemd.user.services.noctalia-hypr-extra = {
       Unit.Description = "Update Hyprland extra colors from Noctalia palette";
