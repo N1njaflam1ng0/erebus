@@ -1,10 +1,10 @@
 { self, ... }: {
-  flake.nixosModules.asusLaptopConfiguration = { config, pkgs, lib, ... }: {
+  flake.nixosModules.pcConfiguration = { config, pkgs, lib, ... }: {
     imports = [
-      self.nixosModules.asusLaptopHardware
+      self.nixosModules.pcHardware
     ];
 
-    networking.hostName = "asusLaptop";
+    networking.hostName = "pc";
     system.stateVersion = "26.05";
 
     # Hybrid AMD + NVIDIA laptop: let AMD drive the display and keep NVIDIA for offload.
