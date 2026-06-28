@@ -48,6 +48,13 @@ order = [ "Chrisser" ]
         opacity = 1.0
         padding = 6.0
 
+[calendar]
+enabled = true
+
+    [calendar.account.personal_google]
+    name = "Personal_Calendar"
+    type = "google"
+
 [desktop_widgets]
 schema_version = 2
 widget_order = []
@@ -233,10 +240,10 @@ transition_on_startup = true
     path = "@FLAKE@/assets/backgrounds/berserk/Armor.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/nix/store/ila3vrzilhganjnwk7xp4f4jfilkc3wp-source/assets/backgrounds/berserk/trees.jpg"
+    path = "@FLAKE@/assets/backgrounds/berserk/trees.jpg"
 
     [wallpaper.monitors.DP-3]
-    path = "/nix/store/ila3vrzilhganjnwk7xp4f4jfilkc3wp-source/assets/backgrounds/berserk/trees.jpg"
+    path = "@FLAKE@/assets/backgrounds/berserk/trees.jpg"
 
     [wallpaper.monitors.DP-4]
     path = "@FLAKE@/assets/backgrounds/berserk/trees.jpg"
