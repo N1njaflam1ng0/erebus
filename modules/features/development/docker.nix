@@ -4,6 +4,6 @@
       enable = true;
       setSocketVariable = true;
     };
-    users.extraGroups.docker.members = [ "chris" "work" ];
+    users.extraGroups.docker.members = [ "ebbe" ];
   };
 }

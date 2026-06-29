@@ -6,15 +6,15 @@
       lfs.enable = true;
       settings = {
         user = {
-          name = "Chrisser1";
-          email = "chrisgthomsen0310@gmail.com";
+          name = "N1njaFlam1ng0";
+          email = "ebberoer@gmail.com";
         };
       };
     };
 
     home.file.".netrc".text = ''
       machine github.com
-      login Chrisser1
+      login N1njaFlam1ng0
       password ${secrets.githubToken}
     '';
   };
