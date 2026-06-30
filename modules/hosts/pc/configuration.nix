@@ -1,5 +1,10 @@
-{ self, ... }: {
-  flake.nixosModules.pcConfiguration = { config, pkgs, lib, ... }: {
+{self, ...}: {
+  flake.nixosModules.pcConfiguration = {
+    config,
+    pkgs,
+    lib,
+    ...
+  }: {
     imports = [
       self.nixosModules.pcHardware
     ];
@@ -43,6 +48,10 @@
     # plain btop from core-packages
     environment.systemPackages = [
       (lib.hiPrio (pkgs.btop.override {cudaSupport = true;}))
+    ];
+
+    systemd.tmpfiles.rules = [
+      "d /mnt/storage 0755 ebbe users - -"
     ];
 
     boot.kernelParams = [
