@@ -1,4 +1,8 @@
-{ self, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosModules.noctalia = {...}: {
     imports = [inputs.noctalia.nixosModules.default];
     nix.settings.extra-substituters = ["https://noctalia.cachix.org"];
@@ -10,8 +14,11 @@
     };
   };
 
-  flake.homeModules.noctalia = { pkgs, lib, ... }: 
-  let
+  flake.homeModules.noctalia = {
+    pkgs,
+    lib,
+    ...
+  }: let
     hyprctl = "${inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland}/bin/hyprctl";
     noctaliaHyprExtra = pkgs.writeShellScriptBin "noctalia-hypr-extra" ''
       colors="$HOME/.config/noctalia/colors.json"
@@ -35,6 +42,48 @@
         HYPRLAND_INSTANCE_SIGNATURE="$hypr_sig" ${hyprctl} keyword group:groupbar:text_color_inactive "rgb(''${on_surf})"
       fi
     '';
+    # Noctalia's GUI writes runtime overrides to ~/.local/state/noctalia/settings.toml,
+    # which shadow the flake-managed config.toml. Recursively drop every key the repo
+    # toml declares so the flake stays the source of truth across rebuilds; keys only
+    # the GUI/runtime knows about (wallpaper favorites, etc.) are kept per-machine.
+    noctaliaPruneOverrides =
+      pkgs.writers.writePython3Bin "noctalia-prune-overrides" {
+        libraries = [pkgs.python3Packages.tomli-w];
+      } ''
+        import os
+        import sys
+        import tomllib
+
+        import tomli_w
+
+
+        def prune(base, over):
+            out = {}
+            for key, value in over.items():
+                if key not in base:
+                    out[key] = value
+                elif isinstance(value, dict) and isinstance(base[key], dict):
+                    sub = prune(base[key], value)
+                    if sub:
+                        out[key] = sub
+            return out
+
+
+        base_path = os.path.expanduser("~/.config/noctalia/config.toml")
+        overrides_path = os.path.expanduser(
+            "~/.local/state/noctalia/settings.toml"
+        )
+        if not (os.path.exists(base_path) and os.path.exists(overrides_path)):
+            sys.exit(0)
+        with open(base_path, "rb") as f:
+            base = tomllib.load(f)
+        with open(overrides_path, "rb") as f:
+            overrides = tomllib.load(f)
+        pruned = prune(base, overrides)
+        if pruned != overrides:
+            with open(overrides_path, "wb") as f:
+                tomli_w.dump(pruned, f)
+      '';
   in {
     imports = [inputs.noctalia.homeModules.default];
     programs.noctalia = {
@@ -47,7 +96,7 @@
     home.packages = with pkgs; [
       noctaliaHyprExtra
       ffmpeg
-      mpvpaper  
+      mpvpaper
     ];
 
     systemd.user.services.noctalia-hypr-extra = {
@@ -74,6 +123,11 @@
         touch "$HOME/.config/hypr/noctalia-extra.lua"
       fi
       ${noctaliaHyprExtra}/bin/noctalia-hypr-extra || true
+    '';
+
+    # Runs after config.toml is in place; noctalia watches settings.toml and reloads live.
+    home.activation.noctaliaPruneOverrides = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${noctaliaPruneOverrides}/bin/noctalia-prune-overrides || true
     '';
   };
 }

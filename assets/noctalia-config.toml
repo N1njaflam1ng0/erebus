@@ -192,7 +192,7 @@ widget_order = [
         show_login_button = true
 
 [plugin_settings."noctalia/mpvpaper"]
-video_directory = "/nix/store/9b893sy0sl86gl6lh883kq6zhfgj0cvy-source/assets/backgrounds/animated"
+video_directory = "@FLAKE@/assets/backgrounds/animated"
 
 [plugins]
 enabled = [ "noctalia/translator", "noctalia/mpvpaper" ]
