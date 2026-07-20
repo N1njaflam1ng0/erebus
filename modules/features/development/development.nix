@@ -15,6 +15,10 @@
       delve   
       # jetbrains.goland
       
+      # .NET
+      dotnet-sdk_9
+      jetbrains.rider
+
       # Java
       jdk25
       jetbrains.idea
@@ -41,6 +45,13 @@
 
     # --- Session Variables ---
     home.sessionVariables = {
+      # .NET - needed because ~/.dotnet (manually installed) can't find ICU on NixOS
+      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = "1";
+    };
+
+    systemd.user.sessionVariables = {
+      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = "1";
+
       # Go
       GOPATH = "${config.home.homeDirectory}/go";
       
