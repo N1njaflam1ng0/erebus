@@ -88,9 +88,20 @@
     imports = [inputs.noctalia.homeModules.default];
     programs.noctalia = {
       enable = true;
-      settings =
-        builtins.replaceStrings ["@FLAKE@"] ["${self}"]
-        (builtins.readFile "${self}/assets/noctalia-config.toml");
+      # Attrset (not raw TOML string) so other modules
+      # can merge into settings. @FLAKE@ is substituted after parsing because
+      # fromTOML rejects strings with store-path context.
+      settings = let
+        subst = v:
+          if builtins.isString v
+          then builtins.replaceStrings ["@FLAKE@"] ["${self}"] v
+          else if builtins.isAttrs v
+          then builtins.mapAttrs (_: subst) v
+          else if builtins.isList v
+          then map subst v
+          else v;
+      in
+        subst (builtins.fromTOML (builtins.readFile (self + "/assets/noctalia-config.toml")));
     };
 
     home.packages = with pkgs; [
