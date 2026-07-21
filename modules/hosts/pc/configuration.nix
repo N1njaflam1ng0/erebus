@@ -63,5 +63,10 @@
     boot.loader.grub.devices = ["nodev"];
     boot.loader.grub.efiSupport = true;
     boot.loader.grub.useOSProber = true;
+    boot.loader.grub.theme = "${self.inputs.grubermeister.packages.${pkgs.stdenv.hostPlatform.system}.default}";
+    
+    boot.loader.grub.entryOptions    = "--unrestricted --class nixos";
+    boot.loader.grub.subEntryOptions = "--unrestricted --class nixos-generation";
+
   };
 }

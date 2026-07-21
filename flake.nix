@@ -27,6 +27,7 @@
       url = "github:OpalAayan/snappy-switcher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    grubermeister.url = "github:N1njaflam1ng0/grubermeister";
     claude-code.url = "github:sadjow/claude-code-nix";
     # sddm
     qylock.url = "github:Darkkal44/qylock";
