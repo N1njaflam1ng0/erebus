@@ -23,6 +23,10 @@
       url = "github:zjeffer/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
     };
+    snappy-switcher = {
+      url = "github:OpalAayan/snappy-switcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     claude-code.url = "github:sadjow/claude-code-nix";
     # sddm
     qylock.url = "github:Darkkal44/qylock";

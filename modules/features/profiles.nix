@@ -8,6 +8,9 @@
       self.homeModules.hyprland
       self.homeModules.noctalia
 
+      # Snappy switcher for window switching
+      self.homeModules.snappy-switcher
+
       # Terminal
       self.homeModules.cli
       self.homeModules.gui-terminal
