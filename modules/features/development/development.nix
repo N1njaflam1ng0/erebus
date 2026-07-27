@@ -35,7 +35,10 @@
 
       # Dev Tools
       devenv
-      obsidian
+      obsidian2
+
+      # Etcher
+      caligula
     ];
 
     # --- Session Paths ---
