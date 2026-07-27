@@ -3,7 +3,12 @@
     imports = [
       # Window manager and related packages
       self.homeModules.hyprland
+
+      # Noctalia stuff
       self.homeModules.noctalia
+      self.homeModules.bitwarden
+      self.homeModules.hypr-screen-mirror
+      self.homeModules.nix-monitor
 
       # Snappy switcher for window switching
       self.homeModules.snappy-switcher
