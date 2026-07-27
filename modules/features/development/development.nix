@@ -35,7 +35,7 @@
 
       # Dev Tools
       devenv
-      obsidian2
+      obsidian
 
       # Etcher
       caligula
