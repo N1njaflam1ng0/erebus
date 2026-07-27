@@ -31,6 +31,8 @@
     claude-code.url = "github:sadjow/claude-code-nix";
     # sddm
     qylock.url = "github:Darkkal44/qylock";
+
+    k3s-cluster.url = "github:Clusterforgers/k3s-cluster";
   };
 
   outputs = inputs:

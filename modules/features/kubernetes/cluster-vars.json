@@ -1,8 +1,0 @@
-{
-  "controlPlaneIp": "158.180.42.198",
-  "controlPlaneTailscaleIp": "100.81.239.16",
-  "controlPlaneSshAlias": "oracle-server",
-  "controlPlaneSshUser": "root",
-  "controlPlaneSshKey": "~/.ssh/ssh-key-2025-11-12.key",
-  "kubernetesVersion": "v1.30.0+k3s1"
-}

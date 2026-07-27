@@ -1,9 +1,6 @@
-{ self, ... }: {
+{ self, inputs, ... }: {
   flake.homeModules.profile-ebbe = {...}: {
     imports = [
-      # For easy connection to servers
-      self.homeModules.ssh
-
       # Window manager and related packages
       self.homeModules.hyprland
       self.homeModules.noctalia
@@ -17,7 +14,8 @@
       self.homeModules.shell-aliases
 
       # Kubernetes client connection to server
-      self.homeModules.kubernetes-client
+      inputs.k3s-cluster.homeModules.ssh
+      inputs.k3s-cluster.homeModules.kubernetes-client
 
       # Everyday use
       self.homeModules.starship
