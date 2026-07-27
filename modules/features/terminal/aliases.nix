@@ -1,5 +1,5 @@
-{ self, ... }: {
-  flake.homeModules.shell-aliases = { pkgs, ... }: {
+{self, ...}: {
+  flake.homeModules.shell-aliases = {pkgs, ...}: {
     programs.fish.shellAliases = let
       flakePath = "$HOME/erebus";
     in {
@@ -16,8 +16,6 @@
       dr = "dotnet run";
       dt = "dotnet test";
       ssh = "kitten ssh";
-      
-      rebuild-oracle = "erebus-rebuild switch --flake ~/erebus#oracle --target-host oracle-server --build-host oracle-server --impure";
     };
   };
 }
