@@ -5,6 +5,9 @@
 }: {
   flake.nixosModules.noctalia = {...}: {
     imports = [inputs.noctalia.nixosModules.default];
+    # nixpkgs upstreamed its own programs.noctalia module; both declare the same
+    # options. Keep the flake's (it allows package = null — we install via HM).
+    disabledModules = ["programs/wayland/noctalia.nix"];
     nix.settings.extra-substituters = ["https://noctalia.cachix.org"];
     nix.settings.extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
     programs.noctalia = {
