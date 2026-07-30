@@ -1,4 +1,8 @@
-{ self, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosModules.desktop-host = {...}: {
     imports = [
       self.nixosModules.base-system
@@ -7,6 +11,7 @@
       self.nixosModules.desktop
       self.nixosModules.users
       self.nixosModules.docker
+      self.nixosModules.flatpak
       self.nixosModules.gaming
 
       # System requirements for packages
