@@ -12,8 +12,7 @@
       go
       gcc
       gopls   
-      delve
-      python   
+      delve   
       # jetbrains.goland
       
       # .NET
