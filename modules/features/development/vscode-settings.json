@@ -9,6 +9,7 @@
   "terminal.integrated.inheritEnv": false,
   "git.enableSmartCommit": true,
   "github.copilot.nextEditSuggestions.enabled": true,
+  "python.condaPath": "micromamba",
 
   "latex-workshop.latex.tools": [
     {
