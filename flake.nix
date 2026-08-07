@@ -24,7 +24,10 @@
       inputs.hyprland.follows = "hyprland";
     };
     snappy-switcher = {
-      url = "github:OpalAayan/snappy-switcher";
+      # Pinned: upstream 06eb4c5 changed snappy-switcher.service to /usr/bin
+      # but its flake.nix postPatch still does --replace-fail "/usr/local",
+      # so patchPhase fails. Unpin once upstream fixes it.
+      url = "github:OpalAayan/snappy-switcher/0957cd612fadf80fa95034515cb6fa2c163e497e";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     grubermeister.url = "github:N1njaflam1ng0/grubermeister";
