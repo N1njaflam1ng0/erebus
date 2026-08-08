@@ -18,6 +18,11 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Video wallpaper backend for the noctalia gSlapper plugin; not in nixpkgs.
+    gslapper = {
+      url = "github:Nomadcxx/gSlapper";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland.url = "github:hyprwm/Hyprland";
     split-monitor-workspaces = {
       url = "github:zjeffer/split-monitor-workspaces";

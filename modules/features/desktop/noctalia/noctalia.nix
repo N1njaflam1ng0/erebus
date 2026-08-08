@@ -108,7 +108,11 @@
     home.packages = with pkgs; [
       noctaliaHyprExtra
       ffmpeg
-      mpvpaper
+      # gSlapper plugin runtime deps: gslapper, gst-launch-1.0, socat, pkill.
+      inputs.gslapper.packages.${pkgs.stdenv.hostPlatform.system}.gslapper
+      gst_all_1.gstreamer
+      socat
+      procps
     ];
 
     systemd.user.services.noctalia-hypr-extra = {

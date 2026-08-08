@@ -44,7 +44,7 @@ order = [ "Chrisser" ]
         fill = "surface_variant"
         foreground = "secondary"
         id = "g4"
-        members = [ "notifications", "wallpaper", "mpvpaper", "clipboard" ]
+        members = [ "notifications", "wallpaper", "gslapper", "clipboard" ]
         opacity = 1.0
         padding = 6.0
 
@@ -191,11 +191,14 @@ widget_order = [
         input_radius = 6.0
         show_login_button = true
 
-[plugin_settings."noctalia/mpvpaper"]
+[plugin_settings."nomadcxx/gslapper"]
+fps_cap = "60"
+loop = true
+scale = "fill"
 video_directory = "@FLAKE@/assets/backgrounds/animated"
 
 [plugins]
-enabled = [ "noctalia/translator", "noctalia/mpvpaper" ]
+enabled = [ "noctalia/translator", "nomadcxx/gslapper" ]
 
     [[plugins.source]]
     kind = "git"
@@ -206,12 +209,6 @@ enabled = [ "noctalia/translator", "noctalia/mpvpaper" ]
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
-
-    [[plugins.source]]
-    enabled = false
-    kind = "git"
-    location = "https://github.com/noctalia-dev/official-plugins/tree/main/mpvpaper"
-    name = "liveWallpaper"
 
 [theme]
 builtin = "Eldritch"
@@ -265,8 +262,8 @@ capsule = true
 hide_when_no_media = true
 title_scroll = "on_hover"
 
-[widget.mpvpaper]
-type = "noctalia/mpvpaper:mpvpaper"
+[widget.gslapper]
+type = "nomadcxx/gslapper:wallpaper"
 
 [widget.workspaces]
 capsule = true
