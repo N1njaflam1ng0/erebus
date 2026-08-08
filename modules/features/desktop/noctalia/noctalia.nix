@@ -85,6 +85,39 @@
             with open(overrides_path, "wb") as f:
                 tomli_w.dump(pruned, f)
       '';
+    # The gSlapper plugin owns assignments.json at runtime, so nothing substitutes
+    # @FLAKE@ into it and its saved paths pin the store hash of whatever flake source
+    # was current when you picked the wallpaper. That keeps working until the old
+    # generation is garbage collected, then the assignment resolves to nothing and the
+    # output silently stays bare. Repoint it at activation so saved wallpapers track
+    # the current source. Anchored on /assets/backgrounds/ so it can only ever rewrite
+    # wallpaper paths, never some other store reference the plugin might hold.
+    noctaliaRepointAssignments = pkgs.writeShellScriptBin "noctalia-repoint-assignments" ''
+      f="$HOME/.local/state/noctalia/plugins/data/nomadcxx/gslapper/assignments.json"
+      [ -f "$f" ] || exit 0
+      ${pkgs.gnused}/bin/sed -i -E \
+        's|/nix/store/[a-z0-9]+-source/assets/backgrounds/|${self}/assets/backgrounds/|g' "$f"
+    '';
+    # Upstream wraps the gslapper binary with GST_PLUGIN_SYSTEM_PATH_1_0, but the
+    # noctalia plugin also shells out to a bare gst-launch-1.0 to render preview
+    # thumbnails. Unwrapped it resolves no elements at all ("no element filesrc")
+    # and every thumbnail comes out blank, so wrap it with the same plugin set
+    # gslapper itself gets — base/good/bad covers H.264 via openh264dec, which is
+    # what gslapper can play anyway, so gst-libav would only widen the closure.
+    gstLaunch = pkgs.symlinkJoin {
+      name = "gst-launch-wrapped";
+      paths = [pkgs.gst_all_1.gstreamer.bin];
+      nativeBuildInputs = [pkgs.makeWrapper];
+      postBuild = ''
+        wrapProgram $out/bin/gst-launch-1.0 \
+          --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "${lib.makeSearchPath "lib/gstreamer-1.0" (with pkgs.gst_all_1; [
+          gstreamer.out
+          gst-plugins-base
+          gst-plugins-good
+          gst-plugins-bad
+        ])}"
+      '';
+    };
   in {
     imports = [inputs.noctalia.homeModules.default];
     programs.noctalia = {
@@ -110,7 +143,7 @@
       ffmpeg
       # gSlapper plugin runtime deps: gslapper, gst-launch-1.0, socat, pkill.
       inputs.gslapper.packages.${pkgs.stdenv.hostPlatform.system}.gslapper
-      gst_all_1.gstreamer
+      gstLaunch
       socat
       procps
     ];
@@ -144,6 +177,12 @@
     # Runs after config.toml is in place; noctalia watches settings.toml and reloads live.
     home.activation.noctaliaPruneOverrides = lib.hm.dag.entryAfter ["writeBoundary"] ''
       ${noctaliaPruneOverrides}/bin/noctalia-prune-overrides || true
+    '';
+
+    # Takes effect when the gSlapper plugin next loads assignments.json; a running
+    # noctalia still holds the old paths in memory until it restarts.
+    home.activation.noctaliaRepointAssignments = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${noctaliaRepointAssignments}/bin/noctalia-repoint-assignments || true
     '';
   };
 }

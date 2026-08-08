@@ -44,7 +44,7 @@ order = [ "Chrisser" ]
         fill = "surface_variant"
         foreground = "secondary"
         id = "g4"
-        members = [ "notifications", "wallpaper", "gslapper", "clipboard" ]
+        members = [ "notifications", "gslapper", "clipboard" ]
         opacity = 1.0
         padding = 6.0
 
