@@ -203,10 +203,22 @@
         hl.bind(mod .. " + up",    hl.dsp.focus({ direction = "up" }))
         hl.bind(mod .. " + down",  hl.dsp.focus({ direction = "down" }))
 
-        hl.bind(mod .. " + SHIFT + left",  hl.dsp.window.move({ direction = "left" }))
-        hl.bind(mod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
-        hl.bind(mod .. " + SHIFT + up",    hl.dsp.window.move({ direction = "up" }))
-        hl.bind(mod .. " + SHIFT + down",  hl.dsp.window.move({ direction = "down" }))
+        -- movewindow refuses any window whose internal fullscreen mode isn't NONE,
+        -- including client-requested "maximized" (Discord). Drop it, then move.
+        local function move_window(dir)
+          return function()
+            local w = hl.get_active_window()
+            if w and w.fullscreen ~= 0 then
+              hl.dispatch(hl.dsp.window.fullscreen_state({ internal = 0, client = 0 }))
+            end
+            hl.dispatch(hl.dsp.window.move({ direction = dir }))
+          end
+        end
+
+        hl.bind(mod .. " + SHIFT + left",  move_window("left"))
+        hl.bind(mod .. " + SHIFT + right", move_window("right"))
+        hl.bind(mod .. " + SHIFT + up",    move_window("up"))
+        hl.bind(mod .. " + SHIFT + down",  move_window("down"))
 
         hl.bind(mod .. " + CTRL + right", hl.dsp.window.resize({ x = 30,  y = 0,   relative = true }), { repeating = true })
         hl.bind(mod .. " + CTRL + left",  hl.dsp.window.resize({ x = -30, y = 0,   relative = true }), { repeating = true })

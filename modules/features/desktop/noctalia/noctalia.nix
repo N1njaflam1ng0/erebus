@@ -120,6 +120,9 @@
     };
   in {
     imports = [inputs.noctalia.homeModules.default];
+    # home-manager now ships its own programs.noctalia module; keep the flake input's
+    # version (it also pins the package) and drop the upstream duplicate.
+    disabledModules = ["programs/noctalia.nix"];
     programs.noctalia = {
       enable = true;
       # Attrset (not raw TOML string) so other modules
