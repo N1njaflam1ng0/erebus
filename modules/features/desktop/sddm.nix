@@ -27,6 +27,8 @@
     programs.qylock = {
       enable = true;
       theme = "pixel-sakura";
-    }; 
+      # Provides qylock-lock, which `erebus-power lock` invokes.
+      quickshell.enable = true;
+    };
   };
 }

@@ -12,15 +12,16 @@
       self.nixosModules.users
       self.nixosModules.docker
       self.nixosModules.flatpak
+      self.nixosModules.keyring
       self.nixosModules.gaming
 
       # System requirements for packages
       self.nixosModules.hyprland
-      self.nixosModules.noctalia
       self.nixosModules.core-packages
       self.nixosModules.discord
       self.nixosModules.firefox-devedition
       self.nixosModules.noise-cancellation
+      self.nixosModules.calendar
       self.nixosModules.fonts
       self.nixosModules.sddm
       self.nixosModules.cli

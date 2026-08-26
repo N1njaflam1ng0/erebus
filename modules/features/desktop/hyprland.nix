@@ -163,16 +163,37 @@
         hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 
         hl.on("hyprland.start", function()
-          hl.exec_cmd("noctalia --daemon")
+          hl.exec_cmd("erebus-shell -d")
+          -- Reapply saved per-output wallpapers (gslapper); paths are stored
+          -- relative to the wallpaper root so they survive a rebuild or a GC.
+          hl.exec_cmd("erebus-wallpaper restore")
         end)
+
+        -- Border and groupbar colours. Noctalia used to generate these into
+        -- noctalia.lua; until matugen takes over they are the static palette
+        -- from assets/quickshell/config/Colors.qml.
+        hl.config({
+          general = {
+            ["col.active_border"]   = "rgba(E02C6Dff)",
+            ["col.inactive_border"] = "rgba(312F2Cff)",
+          },
+          group = {
+            ["col.border_active"]   = "rgba(E02C6Dff)",
+            ["col.border_inactive"] = "rgba(312F2Cff)",
+            groupbar = {
+              ["col.active"]        = "rgba(E02C6Dff)",
+              ["col.inactive"]      = "rgba(262522ff)",
+              text_color            = "rgb(FCE8C3)",
+              text_color_inactive   = "rgb(917E6B)",
+            },
+          },
+        })
 
         local _hypr_dir = (os.getenv("XDG_CONFIG_HOME") or (os.getenv("HOME") .. "/.config")) .. "/hypr"
         package.path = _hypr_dir .. "/?.lua;" .. package.path
-        require("noctalia").apply_theme()
         local smw = require("plugins.split-monitor-workspaces")
         smw.setup({ workspace_count = 9 })
         dofile(_hypr_dir .. "/monitors.lua")
-        dofile(_hypr_dir .. "/noctalia-extra.lua")
 
         hl.bind(mod .. " + S",         hl.dsp.exec_cmd("firefox-devedition"))
         hl.bind(mod .. " + Q",   hl.dsp.window.close())
@@ -180,18 +201,29 @@
         hl.bind(mod .. " + Space",     hl.dsp.window.float({ action = "toggle" }))
         hl.bind(mod .. " + E",         hl.dsp.exec_cmd(fm))
 
-        hl.bind(mod .. " + SHIFT + S",   hl.dsp.exec_cmd("noctalia msg screenshot-region"))
-        hl.bind(mod .. " + U",         hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
-        hl.bind(mod .. " + V",         hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
-        hl.bind(mod .. " + T",         hl.dsp.exec_cmd("noctalia msg settings-toggle"))
-        hl.bind(mod .. " + R",         hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
-        hl.bind("ALT + Space",         hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
+        hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("erebus-screenshot region"))
+        hl.bind(mod .. " + U",         hl.dsp.global("quickshell:togglePower"))
+        hl.bind(mod .. " + V",         hl.dsp.global("quickshell:toggleClipboard"))
+        hl.bind(mod .. " + W",         hl.dsp.global("quickshell:toggleWallpaper"))
+        hl.bind(mod .. " + R",         hl.dsp.global("quickshell:toggleLauncher"))
+        hl.bind("ALT + Space",         hl.dsp.global("quickshell:toggleLauncher"))
+        hl.bind(mod .. " + Grave",     hl.dsp.global("quickshell:toggleMenu"))
+        hl.bind(mod .. " + Home",      hl.dsp.global("quickshell:toggleNotifications"))
+        hl.bind(mod .. " + BackSpace", hl.dsp.global("quickshell:discardLastNotification"))
+        -- Hyprland does not report capslock live, so the shell tracks it from this
+        -- bind; without it the bar's capslock indicator never changes.
+        hl.bind("SHIFT + code:66",     hl.dsp.global("quickshell:shiftlock"))
+
+        -- SUPER+M is now unshadowed: the noctalia screen-mirror plugin used to
+        -- rebind it via mkAfter, silently overriding mute.
         hl.bind(mod .. " + M",         hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
 
-        hl.bind(mod .. " + L",         hl.dsp.exec_cmd("noctalia msg session lock"))
+        hl.bind(mod .. " + L",         hl.dsp.exec_cmd("erebus-power lock"))
 
-        hl.bind(mod .. " + P",         hl.dsp.exec_cmd("hyprpicker -a"))
-        hl.bind(mod .. " + SHIFT + M",   hl.dsp.exec_cmd("hypr-mirror-toggle"))
+        -- Monitors move to SUPER+P; the colour picker shifts to SUPER+SHIFT+P.
+        hl.bind(mod .. " + P",         hl.dsp.global("quickshell:toggleDisplays"))
+        hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprpicker -a"))
+        hl.bind(mod .. " + SHIFT + M", hl.dsp.exec_cmd("erebus-monitors arrange"))
 
         hl.bind(mod .. " + G",           hl.dsp.group.toggle())
         hl.bind(mod .. " + Tab",         hl.dsp.group.next())
