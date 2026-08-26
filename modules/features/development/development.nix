@@ -39,6 +39,9 @@
 
       # Etcher
       caligula
+
+      # Creative tools
+      gimp
     ];
 
     # --- Session Paths ---
