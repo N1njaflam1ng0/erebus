@@ -13,41 +13,31 @@
       follow_monitor = true
 
       [theme]
-      name = noctalia.ini
+      name = erebus.ini
 
       [icons]
-      theme = Adwaita
+      theme = erebus-icons
       fallback = hicolor
       show_letter_fallback = true
     '';
 
-    # Rendered by Noctalia into ~/.config/snappy-switcher/themes/noctalia.ini
-    xdg.configFile."noctalia/templates/snappy-switcher.ini".text = ''
+    # Static palette, matching assets/quickshell/config/Colors.qml. Noctalia used
+    # to render this from a template on every palette change; matugen takes that
+    # job over in the theming phase.
+    xdg.configFile."snappy-switcher/themes/erebus.ini".text = ''
       [colors]
-      background = {{colors.surface.default.hex}}ee
-      card_bg = {{colors.surface_container.default.hex}}ff
-      card_selected = {{colors.surface_container_high.default.hex}}ff
-      text_color = {{colors.on_surface.default.hex}}ff
-      subtext_color = {{colors.on_surface_variant.default.hex}}ff
-      border_color = {{colors.primary.default.hex}}ff
-      bundle_bg = {{colors.surface_container.default.hex}}cc
-      badge_bg = {{colors.secondary_container.default.hex}}ff
-      badge_text_color = {{colors.on_secondary_container.default.hex}}ff
-      badge_bg_selected = {{colors.primary.default.hex}}ff
-      badge_text_color_selected = {{colors.on_primary.default.hex}}ff
+      background = #121110ee
+      card_bg = #1C1B19ff
+      card_selected = #312F2Cff
+      text_color = #FCE8C3ff
+      subtext_color = #C5B088ff
+      border_color = #E02C6Dff
+      bundle_bg = #1C1B19cc
+      badge_bg = #262522ff
+      badge_text_color = #C5B088ff
+      badge_bg_selected = #E02C6Dff
+      badge_text_color_selected = #121110ff
     '';
-
-    # The daemon reads config + theme once at startup with no reload IPC,
-    # so the post_hook restarts it whenever the palette changes. Only
-    # registered when the noctalia home module is imported by the consumer.
-    programs = lib.optionalAttrs (options.programs ? noctalia) {
-      noctalia.settings.theme.templates.user.snappy-switcher = {
-        enabled = true;
-        input_path = "~/.config/noctalia/templates/snappy-switcher.ini";
-        output_path = "~/.config/snappy-switcher/themes/noctalia.ini";
-        post_hook = "systemctl --user restart snappy-switcher.service";
-      };
-    };
 
     wayland.windowManager.hyprland.extraConfig = lib.mkIf hypr.enable (lib.mkAfter (
       if (hypr.configType or "conf") == "lua"

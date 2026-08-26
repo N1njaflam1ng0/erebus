@@ -7,6 +7,14 @@
   }: {
     home.stateVersion = "26.05";
 
+    # Monitor roles for the Quickshell bar. Names from `hyprctl -j monitors`.
+    erebus.shell = {
+      primary = "DP-1";
+      left = "DP-3";
+      right = "HDMI-A-1";
+      outputs = [ "DP-1" "DP-3" "HDMI-A-1" ];
+    };
+
     # Hardware video decode (NVDEC) via nvidia-vaapi-driver.
     # Only works in Firefox — Chromium/Electron can't use this driver.
     # Needs MOZ_DISABLE_RDD_SANDBOX=1, set in pc-configuration.

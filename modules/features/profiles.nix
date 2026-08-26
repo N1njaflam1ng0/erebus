@@ -4,11 +4,13 @@
       # Window manager and related packages
       self.homeModules.hyprland
 
-      # Noctalia stuff
-      self.homeModules.noctalia
-      self.homeModules.bitwarden
-      self.homeModules.hypr-screen-mirror
-      self.homeModules.nix-monitor
+      # Quickshell desktop shell
+      self.homeModules.quickshell
+      self.homeModules.quickshell-helpers
+      self.homeModules.calendar
+      self.homeModules.wallpaper
+      self.homeModules.clipboard-tools
+      self.homeModules.monitors
 
       # Snappy switcher for window switching
       self.homeModules.snappy-switcher
@@ -28,6 +30,7 @@
       self.homeModules.nautilus
       self.homeModules.clipboard
       self.homeModules.appearance
+      self.homeModules.icons
       self.homeModules.development
       self.homeModules.search
       self.homeModules.vscode

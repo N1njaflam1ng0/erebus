@@ -6,10 +6,6 @@
     # Core framework
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
-    noctalia = {
-      url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,7 +14,7 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Video wallpaper backend for the noctalia gSlapper plugin; not in nixpkgs.
+    # Wallpaper engine: plays both stills and video, driven by erebus-wallpaper.
     gslapper = {
       url = "github:Nomadcxx/gSlapper";
       inputs.nixpkgs.follows = "nixpkgs";
