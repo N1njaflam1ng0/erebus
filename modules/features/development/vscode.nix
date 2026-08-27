@@ -25,7 +25,6 @@
       ms-vsliveshare.vsliveshare
       njpwerner.autodocstring
       pkief.material-icon-theme
-      streetsidesoftware.code-spell-checker
       james-yu.latex-workshop
       tintinweb.graphviz-interactive-preview
       usernamehw.errorlens
