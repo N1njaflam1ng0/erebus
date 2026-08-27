@@ -35,6 +35,7 @@
       self.homeModules.search
       self.homeModules.vscode
       self.homeModules.wdisplays
+      self.homeModules.thunderbird
 
       # AI tools
       self.homeModules.claude-code
