@@ -1,0 +1,16 @@
+{
+  "wgsl-analyzer.inlayHints.structLayoutHints": true,
+
+  "js/ts.implicitProjectConfig.checkJs": true,
+
+  "liveServer.settings.AdvanceCustomBrowserCmdLine": "firefox-devedition",
+  "liveServer.settings.port": 5500,
+  "liveServer.settings.fullReload": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true,
+
+  "editor.formatOnSave": true,
+  "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" }
+}

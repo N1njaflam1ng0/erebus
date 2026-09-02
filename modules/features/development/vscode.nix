@@ -88,13 +88,32 @@
               pkgs.vscode-extensions.vadimcn.vscode-lldb
             ];
         };
+        
+        WebGPU = {
+          extensions =
+            commonExtensions
+            ++ (with marketplace; [
+              wgsl-analyzer.wgsl-analyzer
+              ggsimm.wgsl-literal
+              ritwickdey.liveserver
+              firefox-devtools.vscode-firefox-debug
+              esbenp.prettier-vscode
+              formulahendry.auto-rename-tag
+              christian-kohler.path-intellisense
+              xabikos.javascriptsnippets
+              kisstkondoros.vscode-gutter-preview
+              cesium.gltf-vscode
+            ]);
+        };
       };
     };
 
     home.activation.boostrapVscodeSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      # Function to force-update a profile from source
+      # Function to force-update a profile from source.
+      # $2 is an optional profile-specific settings file, merged over the shared one.
       bootstrap_profile() {
           PROFILE_DIR="$1"
+          SETTINGS_OVERLAY="''${2:-}"
           SETTINGS_SOURCE="${./vscode-settings.json}"
           KEYS_SOURCE="${./vscode-keybindings.json}"
 
@@ -105,9 +124,13 @@
               rm -f "$PROFILE_DIR/settings.json"
           fi
 
-          # We use -f to overwrite and ensure it's writable by the user
+          # We overwrite and ensure it is writable by the user
           echo "Updating settings for $PROFILE_DIR"
-          cp -f "$SETTINGS_SOURCE" "$PROFILE_DIR/settings.json"
+          if [ -n "$SETTINGS_OVERLAY" ]; then
+              ${pkgs.jq}/bin/jq -s ".[0] * .[1]" "$SETTINGS_SOURCE" "$SETTINGS_OVERLAY" > "$PROFILE_DIR/settings.json"
+          else
+              cp -f "$SETTINGS_SOURCE" "$PROFILE_DIR/settings.json"
+          fi
           chmod u+w "$PROFILE_DIR/settings.json"
 
           # Handle Keybindings
@@ -126,6 +149,8 @@
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Python"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Cpp"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Rust"
+      bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Zig"
+      bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/WebGPU" "${./vscode-settings-webgpu.json}"
     '';
   };
 }
