@@ -39,7 +39,7 @@
     lib,
     ...
   }: let
-    terminal = "${pkgs.kitty}/bin/kitty";
+    terminal = "${pkgs.ghostty}/bin/ghostty";
     fm = "${pkgs.nautilus}/bin/nautilus";
   in {
     home.packages = with pkgs; [hyprpicker satty];
