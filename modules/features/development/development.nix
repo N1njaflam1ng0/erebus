@@ -8,16 +8,19 @@
       dbeaver-bin
       jetbrains.datagrip
       
+      # C 
+      gcc
+      jetbrains.clion
+
       # Go
       go
-      gcc
       gopls   
       delve   
       # jetbrains.goland
       
       # .NET
       dotnet-sdk_9
-      jetbrains.rider
+      #jetbrains.rider
 
       # Java
       jdk25
