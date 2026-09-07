@@ -105,6 +105,15 @@
               cesium.gltf-vscode
             ]);
         };
+
+        RiscV = {
+          extensions =
+            commonExtensions
+            ++ (with marketplace; [
+              hm.riscv-venus
+              sunshaoce.risc-v
+            ]);
+        };
       };
     };
 
@@ -150,6 +159,7 @@
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Cpp"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Rust"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Zig"
+      bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/WebGPU" "${./vscode-settings-webgpu.json}"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/WebGPU" "${./vscode-settings-webgpu.json}"
     '';
   };
