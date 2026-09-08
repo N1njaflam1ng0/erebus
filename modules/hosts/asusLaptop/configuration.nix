@@ -1,11 +1,23 @@
 { self, ... }: {
-  flake.nixosModules.asusLaptopConfiguration = { config, pkgs, lib, ... }: {
+  flake.nixosModules.asusLaptopConfiguration = { config, pkgs, lib, inputs, ... }: {
     imports = [
       self.nixosModules.asusLaptopHardware
     ];
 
     networking.hostName = "asusLaptop";
     system.stateVersion = "26.05";
+
+    # This machine's keyboard is dead on 6.18.49 — see the nixpkgs-kernel input
+    # in flake.nix. nvidiaPackages below is read off boot.kernelPackages, so the
+    # NVIDIA module follows this pin automatically and stays in step.
+    # Only the kernel itself is pinned; everything built against it (the NVIDIA
+    # module below included) still comes from the main nixpkgs via
+    # linuxPackagesFor, so this does not drag the graphics driver backwards too.
+    boot.kernelPackages = pkgs.linuxPackagesFor
+      (import inputs.nixpkgs-kernel {
+        system = pkgs.stdenv.hostPlatform.system;
+        config = config.nixpkgs.config;
+      }).linuxPackages.kernel;
 
     # Hybrid AMD + NVIDIA laptop: let AMD drive the display and keep NVIDIA for offload.
     services.xserver.videoDrivers = ["amdgpu" "nvidia"];

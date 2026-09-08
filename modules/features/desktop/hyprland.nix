@@ -267,6 +267,21 @@
         hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
         hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
 
+        -- Laptop function row. These are keysyms, not Fn combos: Hyprland can't
+        -- see Fn itself, the keyboard emits a dedicated key. On asusLaptop that
+        -- is Fn+F7/F8 for the panel and Fn+Up/Down for the keyboard LED; on the
+        -- desktop neither keysym ever fires and the helpers no-op.
+        --
+        -- Both go through erebus-* rather than brightnessctl directly: the
+        -- helpers dispatch a global afterwards so the shell's OSD can catch up.
+        -- Keeping the key on the helper (not on hl.dsp.global) means brightness
+        -- still works when the shell isn't running.
+        hl.bind("XF86MonBrightnessUp",    hl.dsp.exec_cmd("erebus-brightness up"),       { repeating = true })
+        hl.bind("XF86MonBrightnessDown",  hl.dsp.exec_cmd("erebus-brightness down"),     { repeating = true })
+        hl.bind("XF86KbdBrightnessUp",    hl.dsp.exec_cmd("erebus-kbd-backlight up"),    { repeating = true })
+        hl.bind("XF86KbdBrightnessDown",  hl.dsp.exec_cmd("erebus-kbd-backlight down"),  { repeating = true })
+        hl.bind("XF86KbdLightOnOff",      hl.dsp.exec_cmd("erebus-kbd-backlight toggle"))
+
         for i = 1, 9 do
           hl.bind(mod .. " + " .. i,         smw.workspace(tostring(i)))
           hl.bind(mod .. " + SHIFT + " .. i, smw.move_to_workspace(tostring(i)))

@@ -3,6 +3,16 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Kernel only, pinned to the last nixpkgs that shipped Linux 6.18.48.
+    # 6.18.49 pulled in two hid-asus commits — "HID: asus: simplify RGB init
+    # sequence" (which starts running a functionality check on the N-KEY init
+    # path that used to be skipped) and "HID: asus: fix missing hid_is_usb()
+    # check" — after which asusLaptop's ASUSTeK N-KEY keyboard still enumerates
+    # and is opened by libinput but emits no key events. The visible symptom is
+    # an SDDM greeter you can click but not type into. Drop this input once a
+    # 6.18.x ships with the keyboard working again.
+    nixpkgs-kernel.url = "github:nixos/nixpkgs/e8be7818e19ada32105a8af937a6a473b38167ca";
+
     # Core framework
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
