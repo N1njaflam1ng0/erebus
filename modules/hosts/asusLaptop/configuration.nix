@@ -61,6 +61,15 @@
       "usbcore.autosuspend=-1"
     ];
 
+    # Intel AX200: keep the firmware out of power-save entirely. power_scheme=1
+    # is CAM (never sleep); the mvm scheme is what actually gates PS, so
+    # power_save=0 alone is not enough. Pairs with
+    # networking.networkmanager.wifi.powersave = false in base-system.
+    boot.extraModprobeConfig = ''
+      options iwlwifi power_save=0
+      options iwlmvm power_scheme=1
+    '';
+
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.enable = true;
     boot.loader.grub.devices = ["nodev"];

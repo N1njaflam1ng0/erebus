@@ -29,7 +29,13 @@
       url = "github:Nomadcxx/gSlapper";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    # Pinned: upstream e9e2f64 "workspace: refactor workspace handling (#16140)"
+    # drops workspace IDs from IPC in favour of addressables, so `hyprctl
+    # workspaces -j` no longer emits "id". Quickshell 0.3.1 then reports id -1
+    # for every workspace, and assets/quickshell keys occupancy, icons and the
+    # active indicator off that id — blank workspace pills, frozen indicator.
+    # This rev is that commit's parent. Unpin once Quickshell handles addresses.
+    hyprland.url = "github:hyprwm/Hyprland/7ebf13abb3c391604c60c9f627c7a403bcec8d17";
     split-monitor-workspaces = {
       url = "github:zjeffer/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";

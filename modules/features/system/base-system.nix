@@ -56,6 +56,11 @@
 
     # Networking & Security
     networking.networkmanager.enable = true;
+    # Wi-Fi power save makes the card miss beacons, which destabilises the RSSI
+    # average wpa_supplicant roams on. Left unset NM uses "ignore", so the driver
+    # default (on) wins and the client roam-thrashes between same-SSID APs.
+    # Costs ~0.5-1W on battery.
+    networking.networkmanager.wifi.powersave = false;
     services.resolved.enable = true;
     networking.firewall = {
       enable = true;

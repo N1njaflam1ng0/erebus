@@ -10,6 +10,7 @@
       
       # C 
       gcc
+      gnumake
       jetbrains.clion
 
       # Go
