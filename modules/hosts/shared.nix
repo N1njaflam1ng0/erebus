@@ -19,6 +19,7 @@
       self.nixosModules.hyprland
       self.nixosModules.core-packages
       self.nixosModules.discord
+      self.nixosModules.slicer
       self.nixosModules.firefox-devedition
       self.nixosModules.noise-cancellation
       self.nixosModules.calendar
