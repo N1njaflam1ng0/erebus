@@ -15,7 +15,6 @@
       db = "dotnet build";
       dr = "dotnet run";
       dt = "dotnet test";
-      ssh = "kitten ssh";
     };
   };
 }
