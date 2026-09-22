@@ -10,6 +10,7 @@
       self.homeModules.calendar
       self.homeModules.wallpaper
       self.homeModules.clipboard-tools
+      self.homeModules.calc-tools
       self.homeModules.monitors
 
       # Snappy switcher for window switching
