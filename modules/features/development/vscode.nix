@@ -160,7 +160,6 @@
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Rust"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Zig"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/WebGPU" "${./vscode-settings-webgpu.json}"
-      bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/WebGPU" "${./vscode-settings-webgpu.json}"
     '';
   };
 }

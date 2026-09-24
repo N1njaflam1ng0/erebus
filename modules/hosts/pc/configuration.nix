@@ -59,7 +59,7 @@
     ];
 
     boot.loader.grub.theme = "${self.inputs.grubermeister.packages.${pkgs.stdenv.hostPlatform.system}.default}";
-    boot.loader.grub.timeout = 10;
+    boot.loader.timeout = 10;
     boot.loader.grub.entryOptions    = "--unrestricted --class nixos";
     boot.loader.grub.subEntryOptions = "--unrestricted --class nixos-generation";
     boot.loader.efi.canTouchEfiVariables = true;

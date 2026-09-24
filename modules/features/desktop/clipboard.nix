@@ -1,9 +1,7 @@
-{ self, ... }: {
-  flake.homeModules.clipboard = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      wl-clipboard
-    ];
-
+{...}: {
+  # wl-clipboard comes from environment.systemPackages (core-packages.nix); the
+  # helpers that need it already call it by store path.
+  flake.homeModules.clipboard = { ... }: {
     services.cliphist = {
       enable = true;
       allowImages = true;

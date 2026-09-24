@@ -25,7 +25,6 @@
       self.nixosModules.calendar
       self.nixosModules.fonts
       self.nixosModules.sddm
-      self.nixosModules.cli
 
       # External flake modules
       inputs.home-manager.nixosModules.home-manager

@@ -1,8 +1,5 @@
-{ self, ... }: {
-  flake.homeModules.development = { pkgs, config, lib, ... }: 
-  let
-    dotnet-sdk = pkgs.dotnet-sdk_9;
-  in {
+{...}: {
+  flake.homeModules.development = { pkgs, config, lib, ... }: {
     home.packages = with pkgs; [
       # Databases
       dbeaver-bin
@@ -17,11 +14,9 @@
       go
       gopls   
       delve   
-      # jetbrains.goland
       
       # .NET
       dotnet-sdk_9
-      #jetbrains.rider
 
       # Java
       jdk25

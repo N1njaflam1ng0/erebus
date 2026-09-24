@@ -1,8 +1,9 @@
-{ self, ... }: {
+{...}: {
   flake.homeModules.nautilus = { pkgs, ... }: {
+    # No gvfs here: services.gvfs.enable in base-system.nix already installs it
+    # system-wide. These are the thumbnailers Nautilus looks up at runtime.
     home.packages = with pkgs; [
       nautilus
-      gvfs
       ffmpegthumbnailer  
       webp-pixbuf-loader 
       libheif            

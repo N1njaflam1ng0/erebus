@@ -1,4 +1,4 @@
-{self, ...}: {
+{...}: {
   flake.nixosModules.core-packages = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       # --- System Utilities ---
@@ -37,11 +37,11 @@
       bluez-tools
 
       # --- Document Handling ---
+      # No texlive here: development.nix pulls in texliveFull, which is a strict
+      # superset (and texlive.combined.* is deprecated upstream anyway).
       pandoc
       poppler-utils
-      texlive.combined.scheme-small
-      # ocrmypdf
-      libreoffice-fresh
+      libreoffice
 
       # --- Media / Visuals ---
       playerctl

@@ -1,9 +1,6 @@
-{ self, ... }: {
-  flake.nixosModules.cli = { pkgs, ... }: {
-    programs.fish.enable = true;
-  };
-
-
+{...}: {
+  # Fish is enabled system-wide in modules/features/system/users.nix, which is
+  # also where the login shell is set -- there is no nixosModules.cli any more.
   flake.homeModules.cli = { pkgs, lib, ... }: {
     programs.fish = {
       enable = true;

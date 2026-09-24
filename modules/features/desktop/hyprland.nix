@@ -42,7 +42,8 @@
     terminal = "${pkgs.ghostty}/bin/ghostty";
     fm = "${pkgs.nautilus}/bin/nautilus";
   in {
-    home.packages = with pkgs; [hyprpicker satty];
+    # satty is in environment.systemPackages (core-packages.nix).
+    home.packages = [pkgs.hyprpicker];
 
     home.activation.hyprlandLuaCleanup = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
       if [ -f "$HOME/.config/hypr/hyprland.lua" ] && [ ! -L "$HOME/.config/hypr/hyprland.lua" ]; then
@@ -65,6 +66,9 @@
     '';
 
     home.pointerCursor = {
+      # Explicit since home-manager deprecated inferring this from the block
+      # merely being defined.
+      enable = true;
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
       size = 24;

@@ -1,4 +1,4 @@
-{ self, inputs, ... }: {
+{self, ...}: {
   flake.nixosModules.sddm = { pkgs, ... }:
   let
     # John Dee and Edward Kelley's Sigillum Dei Aemeth, recoloured to Srcery gold
@@ -48,21 +48,6 @@
         # SDDM already blanks this on Wayland, but the greeter is the one screen
         # that must never lose the keyboard — say it outright.
         settings.General.InputMethod = "";
-
-        # TEMPORARY, for diagnosing the dead keyboard in the greeter. Logs the
-        # Wayland seat and input plumbing to the journal under sddm-greeter-qt6.
-        # Read back with:
-        #   journalctl -b -1 -t sddm-greeter-qt6 | grep wl_keyboard
-        # A known-good trace has, in order:
-        #   wl_keyboard#N.keymap(...)   layout delivered to the client
-        #   wl_keyboard#N.enter(...)    the greeter window HAS keyboard focus
-        #   wl_keyboard#N.key(...)      keystrokes arriving
-        # No enter  -> weston never gives the greeter keyboard focus.
-        # enter but no key -> the keyboard is not routed to this surface.
-        # enter + key -> keys reach Qt and the theme's focus chain drops them.
-        # Remove this line once the cause is known.
-        settings.General.GreeterEnvironment =
-          "WAYLAND_DEBUG=1,QT_LOGGING_RULES=qt.qpa.input*.debug=true";
       };
 
       defaultSession = "hyprland";
