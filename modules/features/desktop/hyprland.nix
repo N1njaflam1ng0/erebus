@@ -210,15 +210,12 @@
         hl.bind(mod .. " + V",         hl.dsp.global("quickshell:toggleClipboard"))
         hl.bind(mod .. " + W",         hl.dsp.global("quickshell:toggleWallpaper"))
         hl.bind(mod .. " + N",         hl.dsp.global("quickshell:toggleWifi"))
+        hl.bind(mod .. " + I",         hl.dsp.global("quickshell:toggleSystem"))
         hl.bind(mod .. " + R",         hl.dsp.global("quickshell:toggleLauncher"))
         hl.bind("ALT + Space",         hl.dsp.global("quickshell:toggleLauncher"))
         hl.bind(mod .. " + Grave",     hl.dsp.global("quickshell:toggleMenu"))
         hl.bind(mod .. " + Home",      hl.dsp.global("quickshell:toggleNotifications"))
         hl.bind(mod .. " + BackSpace", hl.dsp.global("quickshell:discardLastNotification"))
-        -- Hyprland does not report capslock live, so the shell tracks it from this
-        -- bind; without it the bar's capslock indicator never changes.
-        hl.bind("SHIFT + code:66",     hl.dsp.global("quickshell:shiftlock"))
-
         -- SUPER+M is now unshadowed: the noctalia screen-mirror plugin used to
         -- rebind it via mkAfter, silently overriding mute.
         hl.bind(mod .. " + M",         hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
