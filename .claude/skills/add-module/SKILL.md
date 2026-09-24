@@ -3,7 +3,9 @@ name: add-module
 description: Scaffold a new feature module in this NixOS config following the flake-parts + import-tree pattern
 ---
 
-Help the user add a new feature module to `modules/features/`. The module will be auto-discovered by `import-tree` — no manual registration needed.
+Help the user add a new feature module under `modules/features/`. `import-tree` picks the
+file up automatically, but that only *declares* the module — it still has to be listed in
+`profiles.nix` or `shared.nix` to take effect. See Step 4.
 
 ## Step 1: Clarify scope
 
@@ -14,8 +16,12 @@ Ask (or infer from $ARGUMENTS):
 
 ## Step 2: Propose the file path and structure
 
-- Target file: `modules/features/<name>.nix`
-- If it needs a subdirectory (multiple related files): `modules/features/<name>/default.nix` plus siblings
+Features are grouped by category, so the target is `modules/features/<category>/<name>.nix`.
+Existing categories: `apps/`, `desktop/`, `development/`, `gaming/`, `system/`, `terminal/`,
+`custom-commands/`. Add a new category directory only if none fits.
+
+If it needs several related files, use a subdirectory — `modules/features/desktop/quickshell/`
+is the worked example.
 
 Show the user the skeleton before writing it.
 
@@ -52,17 +58,39 @@ Show the user the skeleton before writing it.
 }
 ```
 
-## Step 4: Wire it into a host
+`flake.homeModules` is not a flake-parts built-in — it is declared as an option in
+`modules/transposition.nix`.
 
-After writing the module, show the user how to enable it in a host's `default.nix`. Look at an existing host (e.g., `modules/hosts/laptop/default.nix`) for the pattern — modules are listed in the `modules` array of `nixosConfigurations` or `homeModules` of the home-manager config.
+## Step 4: Wire it in
+
+Modules are **not** enabled per host. Add the new one to the aggregate that matches its scope:
+
+- Home Manager → the `imports` list in `modules/features/profiles.nix`
+  (`flake.homeModules.profile-ebbe`), as `self.homeModules.<name>`
+- NixOS → the `imports` list in `modules/hosts/shared.nix`
+  (`flake.nixosModules.desktop-host`), as `self.nixosModules.<name>`
+
+Both aggregates apply to every host. `modules/hosts/<host>/default.nix` is only for
+genuinely host-specific modules.
+
+If the module should be opt-in per host, give it an option under `erebus.*` and set that
+in `modules/hosts/<host>/home.nix` or `configuration.nix` —
+`modules/features/desktop/quickshell/quickshell.nix` (`options.erebus.shell`) is the pattern.
 
 ## Step 5: Verify
 
-Remind the user to run `rebuild` (or `nix flake check ~/nixos -- --impure`) to catch eval errors before committing.
+`nix flake check ~/erebus --impure` catches eval errors; `rebuild` applies it.
 
 ## Notes
 
-- `import-tree` picks up any `.nix` file under `modules/` automatically — no need to add imports manually
-- Use `inputs.<flake-name>.packages.${pkgs.system}.<pkg>` to reference packages from flake inputs (e.g., Hyprland, NVF)
-- Access secrets via `import "/home/chris/nixos/secrets.nix"` (hardcoded path — same as other modules)
-- The `{ self, inputs, ... }:` top-level args are flake-parts module args, not NixOS module args
+- `import-tree` picks up any `.nix` file under `modules/` automatically — no manual imports.
+  It **skips** files whose basename starts with `_`, which is how `_lock.nix` and
+  `_greeter-theme.nix` stay plain functions that other modules `import` by hand.
+- Use `inputs.<flake-name>.packages.${pkgs.system}.<pkg>` to reference packages from flake
+  inputs (e.g., Hyprland).
+- Secrets arrive as a **module argument**, not an import: take `secrets` in the module's
+  arg set (`{ pkgs, secrets, ... }:`) and use `secrets.<key>`. It is supplied by
+  `extraSpecialArgs`/`specialArgs` in `modules/hosts/shared.nix` and each host's
+  `default.nix`. This is also why every rebuild needs `--impure`.
+- The `{ self, inputs, ... }:` top-level args are flake-parts module args, not NixOS module args.
+- A PostToolUse hook runs `alejandra` on every `.nix` file written, so don't hand-format.

@@ -205,6 +205,7 @@
         hl.bind(mod .. " + U",         hl.dsp.global("quickshell:togglePower"))
         hl.bind(mod .. " + V",         hl.dsp.global("quickshell:toggleClipboard"))
         hl.bind(mod .. " + W",         hl.dsp.global("quickshell:toggleWallpaper"))
+        hl.bind(mod .. " + N",         hl.dsp.global("quickshell:toggleWifi"))
         hl.bind(mod .. " + R",         hl.dsp.global("quickshell:toggleLauncher"))
         hl.bind("ALT + Space",         hl.dsp.global("quickshell:toggleLauncher"))
         hl.bind(mod .. " + Grave",     hl.dsp.global("quickshell:toggleMenu"))
