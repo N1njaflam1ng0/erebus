@@ -8,10 +8,9 @@
 //    so `config` stays {} and every colour, font and dimension in the theme reads
 //    back undefined. Baking it in removes the runtime read entirely.
 //
-//  * `keyboard` is stubbed. sddm-astronaut's Components/Input.qml reads
-//    keyboard.capsLock; nothing here can tell, and an undefined identifier is a
-//    ReferenceError rather than a quiet undefined, which takes the login-failed
-//    warning down with it.
+//  * `keyboard` is stubbed. Sigil's Main.qml reads keyboard.capsLock; nothing
+//    here can tell, and an undefined identifier is a ReferenceError rather than
+//    a quiet undefined, which takes the password field's binding down with it.
 //
 // Everything the theme resolves -- config, keyboard, sddm, userModel, sessionModel
 // -- has to be a property of this root: the theme is loaded by URL, and a Loader's

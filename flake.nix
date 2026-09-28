@@ -43,7 +43,11 @@
     };
     grubermeister.url = "github:N1njaflam1ng0/grubermeister";
     claude-code.url = "github:sadjow/claude-code-nix";
-    # sddm
+    # Greeter theme, also run as the lockscreen through qylock's SDDM shim.
+    sigil-sddm = {
+      url = "github:Clusterforgers/sigil-sddm-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     qylock.url = "github:Darkkal44/qylock";
 
     k3s-cluster.url = "github:Clusterforgers/k3s-cluster";

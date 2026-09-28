@@ -835,8 +835,29 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-kernel": "nixpkgs-kernel",
         "qylock": "qylock",
+        "sigil-sddm": "sigil-sddm",
         "snappy-switcher": "snappy-switcher",
         "split-monitor-workspaces": "split-monitor-workspaces"
+      }
+    },
+    "sigil-sddm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790608436,
+        "narHash": "sha256-uFZKHrklpC0sXhbxpIrkaHuErZlg0xE7V2CeRGFHtIU=",
+        "owner": "Clusterforgers",
+        "repo": "sigil-sddm-theme",
+        "rev": "ec81ece40a68a82e43f243bc2bad9e1d5a683349",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Clusterforgers",
+        "repo": "sigil-sddm-theme",
+        "type": "github"
       }
     },
     "snappy-switcher": {

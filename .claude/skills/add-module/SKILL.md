@@ -85,7 +85,7 @@ in `modules/hosts/<host>/home.nix` or `configuration.nix` —
 
 - `import-tree` picks up any `.nix` file under `modules/` automatically — no manual imports.
   It **skips** files whose basename starts with `_`, which is how `_lock.nix` and
-  `_greeter-theme.nix` stay plain functions that other modules `import` by hand.
+  `_greeter-theme.nix` stay plain Nix files that other modules `import` by hand.
 - Use `inputs.<flake-name>.packages.${pkgs.system}.<pkg>` to reference packages from flake
   inputs (e.g., Hyprland).
 - Secrets arrive as a **module argument**, not an import: take `secrets` in the module's
