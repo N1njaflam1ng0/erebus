@@ -1,5 +1,12 @@
-{ self, ... }: {
-  flake.nixosModules.base-system = { pkgs, secrets, ... }: {
+{...}: {
+  flake.nixosModules.base-system = {
+    pkgs,
+    secrets,
+    ...
+  }: {
+    nixpkgs.config.allowUnfree = true;
+    hardware.enableRedistributableFirmware = true;
+
     # Needed by GTK applications
     programs.dconf.enable = true;
 
@@ -41,17 +48,6 @@
     time.timeZone = "Europe/Copenhagen";
     i18n.defaultLocale = "en_US.UTF-8";
     i18n.supportedLocales = ["en_US.UTF-8/UTF-8"];
-    i18n.extraLocaleSettings = {
-      LC_ADDRESS = "en_US.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "en_US.UTF-8";
-      LC_MONETARY = "en_US.UTF-8";
-      LC_NAME = "en_US.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
-      LC_PAPER = "en_US.UTF-8";
-      LC_TELEPHONE = "en_US.UTF-8";
-      LC_TIME = "en_US.UTF-8";
-    };
     console.keyMap = "dk";
 
     # Networking & Security
@@ -86,10 +82,6 @@
 
     security.sudo.enable = true;
     programs.fuse.userAllowOther = true;
-
-    # Set time for windows and linux to agree
-    time.hardwareClockInLocalTime = false;
-    services.timesyncd.enable = true;
 
     services.upower.enable = true;
   };

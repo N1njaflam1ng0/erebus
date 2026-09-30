@@ -7,7 +7,6 @@
       wget
       zip
       unzip
-      dbus
       jq
       bc
       vlc
@@ -33,7 +32,6 @@
       # things it deliberately doesn't cover -- 802.1X, VPNs, static addresses.
       # The nm-applet tray icon itself is unused; Quickshell draws the bar.
       networkmanagerapplet
-      bluez
       bluez-tools
 
       # --- Document Handling ---
@@ -51,9 +49,6 @@
       nh
       nix-output-monitor
       nix-tree
-
-      # --- Monitoring ---
-      btop
 
       # --- Sound ---
       crosspipe

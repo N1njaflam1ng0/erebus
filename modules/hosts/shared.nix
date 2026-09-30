@@ -3,12 +3,12 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.desktop-host = {...}: {
+  flake.nixosModules.desktop-host = {secrets, ...}: {
     imports = [
       self.nixosModules.base-system
       self.nixosModules.tailscale
+      self.nixosModules.network-tuning
       self.nixosModules.bluetooth
-      self.nixosModules.desktop
       self.nixosModules.users
       self.nixosModules.docker
       self.nixosModules.flatpak
@@ -35,8 +35,7 @@
       useUserPackages = true;
       useGlobalPkgs = true;
       extraSpecialArgs = {
-        inherit inputs;
-        secrets = import "/home/ebbe/erebus/secrets.nix";
+        inherit inputs secrets;
       };
 
       users.ebbe.imports = [self.homeModules.profile-ebbe];

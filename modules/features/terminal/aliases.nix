@@ -1,8 +1,6 @@
-{self, ...}: {
-  flake.homeModules.shell-aliases = {pkgs, ...}: {
-    programs.fish.shellAliases = let
-      flakePath = "$HOME/erebus";
-    in {
+{...}: {
+  flake.homeModules.shell-aliases = {...}: {
+    programs.fish.shellAliases = {
       vim = "nvim";
       rebuild = "nh os switch ~/erebus -- --impure";
       update = "nh os switch ~/erebus --update -- --impure";
@@ -10,7 +8,6 @@
       usage = "gdu /";
       store-map = "nix-tree -- /run/current-system";
       roots = "nix-store --gc --print-roots | grep -v '/proc/'";
-      hms = "home-manager switch --flake ${flakePath}#$(hostname)";
       dn = "dotnet";
       db = "dotnet build";
       dr = "dotnet run";

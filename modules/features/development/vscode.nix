@@ -1,10 +1,14 @@
-{ inputs, ... }: {
+{inputs, ...}: {
   flake.nixosModules.vscode = {...}: {
     nixpkgs.overlays = [inputs.nix-vscode-extensions.overlays.default];
   };
 
-  flake.homeModules.vscode = { pkgs, config, lib, ... }: 
-  let
+  flake.homeModules.vscode = {
+    pkgs,
+    config,
+    lib,
+    ...
+  }: let
     marketplace = pkgs.vscode-marketplace;
 
     commonExtensions = with marketplace; [
@@ -88,7 +92,7 @@
               pkgs.vscode-extensions.vadimcn.vscode-lldb
             ];
         };
-        
+
         WebGPU = {
           extensions =
             commonExtensions
@@ -158,7 +162,6 @@
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Python"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Cpp"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Rust"
-      bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Zig"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/WebGPU" "${./vscode-settings-webgpu.json}"
     '';
   };
