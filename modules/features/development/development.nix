@@ -41,6 +41,7 @@
 
       # Creative tools
       gimp
+      blender
     ];
 
     # --- Session Paths ---
