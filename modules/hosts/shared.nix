@@ -23,7 +23,7 @@
       self.nixosModules.slicer
       self.nixosModules.firefox-devedition
       self.nixosModules.noise-cancellation
-      self.nixosModules.calendar
+      self.nixosModules.erebus-shell
       self.nixosModules.fonts
       self.nixosModules.sddm
 

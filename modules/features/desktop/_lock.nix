@@ -1,6 +1,6 @@
 # The lockscreen. Not a flake-parts module (import-tree skips "/_" paths) but a
-# plain function returning the `erebus-lock` package, so helpers.nix can drop it
-# straight into `erebus-power lock`.
+# plain function returning the `erebus-lock` package, so erebus-shell.nix can hand
+# it to the bar as programs.erebus-shell.lockCommand.
 #
 # The lockscreen IS the greeter. qylock's quickshell-lockscreen is an SDDM-theme
 # runner: shim/SddmShim.qml fakes SDDM's `sddm`/`userModel`/`sessionModel` context

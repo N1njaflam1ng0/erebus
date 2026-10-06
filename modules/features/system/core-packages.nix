@@ -28,7 +28,7 @@
 
       # --- Connectivity ---
       # Kept for nm-connection-editor, which the shell's wifi panel
-      # (assets/quickshell/modules/network/WifiPanel.qml) shells out to for the
+      # (erebus-shell: shell/modules/network/WifiPanel.qml) shells out to for the
       # things it deliberately doesn't cover -- 802.1X, VPNs, static addresses.
       # The nm-applet tray icon itself is unused; Quickshell draws the bar.
       networkmanagerapplet

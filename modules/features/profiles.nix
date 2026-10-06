@@ -4,14 +4,8 @@
       # Window manager and related packages
       self.homeModules.hyprland
 
-      # Quickshell desktop shell
-      self.homeModules.quickshell
-      self.homeModules.quickshell-helpers
-      self.homeModules.calendar
-      self.homeModules.wallpaper
-      self.homeModules.clipboard-tools
-      self.homeModules.calc-tools
-      self.homeModules.monitors
+      # Quickshell desktop shell (inputs.erebus-shell)
+      self.homeModules.erebus-shell
 
       # Snappy switcher for window switching
       self.homeModules.snappy-switcher

@@ -166,16 +166,12 @@
         hl.animation({ leaf = "workspacesIn",  enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
         hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 
-        hl.on("hyprland.start", function()
-          hl.exec_cmd("erebus-shell -d")
-          -- Reapply saved per-output wallpapers (gslapper); paths are stored
-          -- relative to the wallpaper root so they survive a rebuild or a GC.
-          hl.exec_cmd("erebus-wallpaper restore")
-        end)
+        -- The bar's autostart and keybinds are appended by programs.erebus-shell
+        -- (see erebus-shell.nix).
 
         -- Border and groupbar colours. Noctalia used to generate these into
         -- noctalia.lua; until matugen takes over they are the static palette
-        -- from assets/quickshell/config/Colors.qml.
+        -- from erebus-shell's shell/config/Colors.qml.
         hl.config({
           general = {
             ["col.active_border"]   = "rgba(E02C6Dff)",
@@ -205,27 +201,12 @@
         hl.bind(mod .. " + Space",     hl.dsp.window.float({ action = "toggle" }))
         hl.bind(mod .. " + E",         hl.dsp.exec_cmd(fm))
 
-        hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("erebus-screenshot region"))
-        hl.bind(mod .. " + U",         hl.dsp.global("quickshell:togglePower"))
-        hl.bind(mod .. " + V",         hl.dsp.global("quickshell:toggleClipboard"))
-        hl.bind(mod .. " + W",         hl.dsp.global("quickshell:toggleWallpaper"))
-        hl.bind(mod .. " + N",         hl.dsp.global("quickshell:toggleWifi"))
-        hl.bind(mod .. " + I",         hl.dsp.global("quickshell:toggleSystem"))
-        hl.bind(mod .. " + R",         hl.dsp.global("quickshell:toggleLauncher"))
-        hl.bind("ALT + Space",         hl.dsp.global("quickshell:toggleLauncher"))
-        hl.bind(mod .. " + Grave",     hl.dsp.global("quickshell:toggleMenu"))
-        hl.bind(mod .. " + Home",      hl.dsp.global("quickshell:toggleNotifications"))
-        hl.bind(mod .. " + BackSpace", hl.dsp.global("quickshell:discardLastNotification"))
         -- SUPER+M is now unshadowed: the noctalia screen-mirror plugin used to
         -- rebind it via mkAfter, silently overriding mute.
         hl.bind(mod .. " + M",         hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
 
-        hl.bind(mod .. " + L",         hl.dsp.exec_cmd("erebus-power lock"))
-
-        -- Monitors move to SUPER+P; the colour picker shifts to SUPER+SHIFT+P.
-        hl.bind(mod .. " + P",         hl.dsp.global("quickshell:toggleDisplays"))
+        -- SUPER+P is the bar's displays panel; the colour picker sits on SHIFT.
         hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprpicker -a"))
-        hl.bind(mod .. " + SHIFT + M", hl.dsp.exec_cmd("erebus-monitors arrange"))
 
         hl.bind(mod .. " + G",           hl.dsp.group.toggle())
         hl.bind(mod .. " + Tab",         hl.dsp.group.next())
@@ -268,21 +249,6 @@
         hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })
         hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
         hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
-
-        -- Laptop function row. These are keysyms, not Fn combos: Hyprland can't
-        -- see Fn itself, the keyboard emits a dedicated key. On asusLaptop that
-        -- is Fn+F7/F8 for the panel and Fn+Up/Down for the keyboard LED; on the
-        -- desktop neither keysym ever fires and the helpers no-op.
-        --
-        -- Both go through erebus-* rather than brightnessctl directly: the
-        -- helpers dispatch a global afterwards so the shell's OSD can catch up.
-        -- Keeping the key on the helper (not on hl.dsp.global) means brightness
-        -- still works when the shell isn't running.
-        hl.bind("XF86MonBrightnessUp",    hl.dsp.exec_cmd("erebus-brightness up"),       { repeating = true })
-        hl.bind("XF86MonBrightnessDown",  hl.dsp.exec_cmd("erebus-brightness down"),     { repeating = true })
-        hl.bind("XF86KbdBrightnessUp",    hl.dsp.exec_cmd("erebus-kbd-backlight up"),    { repeating = true })
-        hl.bind("XF86KbdBrightnessDown",  hl.dsp.exec_cmd("erebus-kbd-backlight down"),  { repeating = true })
-        hl.bind("XF86KbdLightOnOff",      hl.dsp.exec_cmd("erebus-kbd-backlight toggle"))
 
         for i = 1, 9 do
           hl.bind(mod .. " + " .. i,         smw.workspace(tostring(i)))

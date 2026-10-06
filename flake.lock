@@ -52,6 +52,35 @@
         "type": "github"
       }
     },
+    "erebus-shell": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "gslapper": [
+          "gslapper"
+        ],
+        "import-tree": [
+          "import-tree"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791277885,
+        "narHash": "sha256-KMHSdqT3J2rhnUDVCdTKX09oCDZdmU5A8PhgF8YKh/o=",
+        "owner": "N1njaFlam1ng0",
+        "repo": "erebus-shell",
+        "rev": "95e697da04ba1e8c96f89accee024126275fc1ab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "N1njaFlam1ng0",
+        "repo": "erebus-shell",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -853,6 +882,7 @@
     "root": {
       "inputs": {
         "claude-code": "claude-code",
+        "erebus-shell": "erebus-shell",
         "flake-parts": "flake-parts",
         "grubermeister": "grubermeister",
         "gslapper": "gslapper",

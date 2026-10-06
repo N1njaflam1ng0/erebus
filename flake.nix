@@ -25,6 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Wallpaper engine: plays both stills and video, driven by erebus-wallpaper.
+    # Used by erebus-shell; declared here so both share one lock entry.
     gslapper = {
       url = "github:Nomadcxx/gSlapper";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,6 +50,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     qylock.url = "github:Darkkal44/qylock";
+
+    # The Quickshell bar and its helpers (~/repos/Personal/erebus-shell).
+    erebus-shell = {
+      url = "github:N1njaFlam1ng0/erebus-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.gslapper.follows = "gslapper";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.import-tree.follows = "import-tree";
+    };
 
     k3s-cluster.url = "github:Clusterforgers/k3s-cluster";
   };

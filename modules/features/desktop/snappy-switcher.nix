@@ -21,7 +21,7 @@
       show_letter_fallback = true
     '';
 
-    # Static palette, matching assets/quickshell/config/Colors.qml. Noctalia used
+    # Static palette, matching erebus-shell: shell/config/Colors.qml. Noctalia used
     # to render this from a template on every palette change; matugen takes that
     # job over in the theming phase.
     xdg.configFile."snappy-switcher/themes/erebus.ini".text = ''

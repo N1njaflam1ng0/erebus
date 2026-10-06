@@ -3,11 +3,10 @@
     home.stateVersion = "26.05";
 
     # Monitor roles for the Quickshell bar. Names from `hyprctl -j monitors`.
-    erebus.shell = {
+    programs.erebus-shell.outputs = {
       primary = "DP-1";
       left = "DP-3";
       right = "HDMI-A-1";
-      outputs = [ "DP-1" "DP-3" "HDMI-A-1" ];
     };
 
     xdg.configFile."gtk-3.0/bookmarks" = {
