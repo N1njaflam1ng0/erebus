@@ -23,7 +23,6 @@
       self.homeModules.starship
       self.homeModules.git
       self.homeModules.nautilus
-      self.homeModules.clipboard
       self.homeModules.appearance
       self.homeModules.icons
       self.homeModules.development

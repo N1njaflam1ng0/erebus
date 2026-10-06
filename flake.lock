@@ -68,11 +68,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791277885,
-        "narHash": "sha256-KMHSdqT3J2rhnUDVCdTKX09oCDZdmU5A8PhgF8YKh/o=",
+        "lastModified": 1791280791,
+        "narHash": "sha256-gkNYARxK6ThX9iZcghXH085XudAKKNg9Az7Jt0NRv+Y=",
         "owner": "N1njaFlam1ng0",
         "repo": "erebus-shell",
-        "rev": "95e697da04ba1e8c96f89accee024126275fc1ab",
+        "rev": "57b8b26702f7da626bbc7d58e0e7722d79eddd00",
         "type": "github"
       },
       "original": {
