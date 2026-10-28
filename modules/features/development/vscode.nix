@@ -33,6 +33,22 @@
       tintinweb.graphviz-interactive-preview
       usernamehw.errorlens
     ];
+
+    jdkHome = "${pkgs.jdk25}/lib/openjdk";
+
+    # Generated (not a static JSON file) so the JDK store path is embedded.
+    javaSettings = pkgs.writeText "vscode-settings-java.json" (builtins.toJSON {
+      "java.jdt.ls.java.home" = jdkHome;
+      "java.configuration.runtimes" = [
+        {
+          name = "JavaSE-25";
+          path = jdkHome;
+          default = true;
+        }
+      ];
+      "java.configuration.updateBuildConfiguration" = "automatic";
+      "[java]" = {"editor.defaultFormatter" = "redhat.java";};
+    });
   in {
     programs.vscode = {
       enable = true;
@@ -110,6 +126,23 @@
             ]);
         };
 
+        Java = {
+          extensions =
+            commonExtensions
+            ++ (with marketplace; [
+              vscjava.vscode-java-debug
+              vscjava.vscode-java-test
+              vscjava.vscode-maven
+              vscjava.vscode-gradle
+              vscjava.vscode-java-dependency
+            ])
+            ++ (with pkgs.vscode-extensions; [
+              # nixpkgs builds: no bundled (non-NixOS) JRE / native binaries
+              redhat.java
+              redhat.vscode-xml
+            ]);
+        };
+
         RiscV = {
           extensions =
             commonExtensions
@@ -163,6 +196,7 @@
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Cpp"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Rust"
       bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/WebGPU" "${./vscode-settings-webgpu.json}"
+      bootstrap_profile "${config.home.homeDirectory}/.config/Code/User/profiles/Java" "${javaSettings}"
     '';
   };
 }

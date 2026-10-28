@@ -1,27 +1,34 @@
 {...}: {
-  flake.homeModules.development = { pkgs, config, lib, ... }: {
+  flake.homeModules.development = {
+    pkgs,
+    config,
+    lib,
+    ...
+  }: {
     home.packages = with pkgs; [
       # Databases
       dbeaver-bin
       jetbrains.datagrip
-      
-      # C 
+
+      # C
       gcc
       gnumake
       jetbrains.clion
 
       # Go
       go
-      gopls   
-      delve   
-      
+      gopls
+      delve
+
       # .NET
       dotnet-sdk_9
 
       # Java
       jdk25
+      maven
+      gradle
       jetbrains.idea
-      
+
       # Node & Python
       nodejs_24
       pnpm
@@ -60,12 +67,19 @@
 
       # Go
       GOPATH = "${config.home.homeDirectory}/go";
-      
+
       # Java
       JAVA_HOME = "${pkgs.jdk25}/lib/openjdk";
       LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-        pkgs.libXxf86vm pkgs.libXtst pkgs.libglvnd pkgs.gtk3              
-        pkgs.glib pkgs.cairo pkgs.pango pkgs.atk pkgs.gdk-pixbuf
+        pkgs.libXxf86vm
+        pkgs.libXtst
+        pkgs.libglvnd
+        pkgs.gtk3
+        pkgs.glib
+        pkgs.cairo
+        pkgs.pango
+        pkgs.atk
+        pkgs.gdk-pixbuf
       ];
     };
 
