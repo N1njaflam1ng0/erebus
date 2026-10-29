@@ -22,6 +22,7 @@
       self.nixosModules.stoat
       self.nixosModules.signal
       self.nixosModules.slicer
+      self.nixosModules.ofmc
       self.nixosModules.firefox-devedition
       self.nixosModules.noise-cancellation
       self.nixosModules.erebus-shell
