@@ -19,7 +19,6 @@
       self.nixosModules.hyprland
       self.nixosModules.core-packages
       self.nixosModules.discord
-      self.nixosModules.stoat
       self.nixosModules.signal
       self.nixosModules.slicer
       self.nixosModules.ofmc

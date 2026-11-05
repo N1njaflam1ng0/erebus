@@ -7,8 +7,8 @@
   }: {
     home.packages = with pkgs; [
       # Databases
-      dbeaver-bin
-      jetbrains.datagrip
+      #dbeaver-bin
+      #jetbrains.datagrip
 
       # C
       gcc
