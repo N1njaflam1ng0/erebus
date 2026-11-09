@@ -32,6 +32,7 @@
       james-yu.latex-workshop
       tintinweb.graphviz-interactive-preview
       usernamehw.errorlens
+      ms-vscode.hexeditor
     ];
 
     jdkHome = "${pkgs.jdk25}/lib/openjdk";
