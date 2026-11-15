@@ -9,6 +9,7 @@
 
     environment.systemPackages = with pkgs; [
       prismlauncher # Minecraft
+      r2modman # Risk of Rain 2
     ];
   };
 }
