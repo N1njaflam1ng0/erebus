@@ -30,6 +30,7 @@
       self.homeModules.vscode
       self.homeModules.wdisplays
       self.homeModules.thunderbird
+      self.homeModules.firefox-devedition
 
       # AI tools
       self.homeModules.claude-code
