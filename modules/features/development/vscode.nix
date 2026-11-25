@@ -11,7 +11,20 @@
   }: let
     marketplace = pkgs.vscode-marketplace;
 
-    commonExtensions = with marketplace; [
+    # Workaround for https://github.com/microsoft/vscode/issues/347630:
+    # Live Share 1.1.122 stores the join session ID in the undeclared setting
+    # `vsliveshare.join.reload.workspaceId`. Newer VS Code drops undeclared
+    # settings, so the guest window closes right after joining. Declaring the
+    # setting in the extension's manifest fixes it. Remove once fixed upstream.
+    liveshare = marketplace.ms-vsliveshare.vsliveshare.overrideAttrs (old: {
+      postInstall = (old.postInstall or "") + ''
+        f="$out/share/vscode/extensions/ms-vsliveshare.vsliveshare/package.json"
+        ${pkgs.jq}/bin/jq '.contributes.configuration.properties["vsliveshare.join.reload.workspaceId"] = {type: "string", scope: "window", description: "Live Share join reload workspace ID"}' "$f" > package.json.tmp
+        mv package.json.tmp "$f"
+      '';
+    });
+
+    commonExtensions = [ liveshare ] ++ (with marketplace; [
       bbenoist.nix
       docker.docker
       formulahendry.docker-explorer
@@ -26,14 +39,13 @@
       mkhl.direnv
       ms-azuretools.vscode-containers
       ms-azuretools.vscode-docker
-      ms-vsliveshare.vsliveshare
       njpwerner.autodocstring
       pkief.material-icon-theme
       james-yu.latex-workshop
       tintinweb.graphviz-interactive-preview
       usernamehw.errorlens
       ms-vscode.hexeditor
-    ];
+    ]);
 
     jdkHome = "${pkgs.jdk25}/lib/openjdk";
 
