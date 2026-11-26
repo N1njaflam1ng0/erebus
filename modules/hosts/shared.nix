@@ -22,6 +22,7 @@
       self.nixosModules.signal
       self.nixosModules.slicer
       self.nixosModules.betaflight
+      self.nixosModules.kiwix
       self.nixosModules.ofmc
       self.nixosModules.firefox-devedition
       self.nixosModules.noise-cancellation
